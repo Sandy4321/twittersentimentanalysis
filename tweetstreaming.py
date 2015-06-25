@@ -9,11 +9,11 @@ import tweepy
 import sys
 import pymongo
 
-consumer_key="IJgRrksytlDQa86234CZGZdSd"
-consumer_secret="BFgX7oxgHtkInj5p8uzprSGLUuPah4gwXmrhYk5tY02zGNPhgl"
+consumer_key=""
+consumer_secret=""
 
-access_token="318537895-ixn2XK83HoVAdT5g7Q4sNNJ4AFOMm2RLTY2cxC4L"
-access_token_secret="jAeDFEnzCMZJwG12zQSXTpAtOrI5HyFJauzLAWwt36Ckj"
+access_token=""
+access_token_secret=""
 
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
@@ -24,7 +24,7 @@ class CustomStreamListener(tweepy.StreamListener):
         self.api = api
         super(tweepy.StreamListener, self).__init__()
 
-        self.db = pymongo.MongoClient('localhost', 27017).rockets
+        self.db = pymongo.MongoClient('localhost', 27017).rockets #specify whatever you want to call your database. Mine is called rockets
 
     def on_status(self, status):
         status.text=str(unicode(status.text).encode("utf-8"))
@@ -48,4 +48,4 @@ class CustomStreamListener(tweepy.StreamListener):
         return True # Don't kill the stream
 
 sapi = tweepy.streaming.Stream(auth, CustomStreamListener(api))
-sapi.filter(track=['rockets']) 
+sapi.filter(track=['rockets']) #specify your keyword(s)
